@@ -4,9 +4,11 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node index"
+    "start": "netlify-lambda serve src",
+    "build": "netlify-lambda build src"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "express": "^4.16.4"
   },
   "devDependencies": {
@@ -19,6 +21,7 @@
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-prettier": "^3.0.0",
     "eslint-plugin-react": "^7.11.1",
+    "netlify-lambda": "^1.0.2",
     "prettier": "^1.14.3"
   }
 }

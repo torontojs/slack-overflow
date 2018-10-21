@@ -1,5 +1,5 @@
 exports.handler = (event, context, callback) => {
-  let https = require('https')
+  let axios = require('axios')
   let qs = require('querystring')
 
   let { text = '' } = qs.parse(event.body)
@@ -9,10 +9,9 @@ exports.handler = (event, context, callback) => {
     q: text,
   })
 
-  https.get(`https://api.stackexchange.com/search/advanced?${params}`, resp => {
-    let data = ''
-    resp.on('data', chunk => (data += chunk))
-    resp.on('end', () => {
+  axios
+    .get(`https://api.stackexchange.com/search/advanced?${params}`)
+    .then(({ data }) => {
       callback(null, {
         statusCode: 200,
         headers: {
@@ -23,11 +22,10 @@ exports.handler = (event, context, callback) => {
           text: `Hopefully one of these answers your question!`,
           attachments: [
             {
-              text: JSON.parse(data).has_more,
+              text: data,
             },
           ],
         }),
       })
     })
-  })
 }
