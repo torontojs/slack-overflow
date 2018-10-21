@@ -3,10 +3,12 @@ exports.handler = (event, context, callback) => {
     statusCode: 200,
     body: {
       response_type: 'in_channel',
-      text: 'hey hey ' + event.body.text,
+      text: 'hey hey ',
+      // text: 'hey hey ' + event.body.text,
       attachments: [
         {
-          text: event.body.text,
+          // text: event.body.text,
+          text: '123',
         },
       ],
     },
