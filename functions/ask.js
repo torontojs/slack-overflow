@@ -1,4 +1,7 @@
 exports.handler = (event, context, callback) => {
+  let qs = require('querystring')
+  let body = qa.parse(event.body)
+
   callback(null, {
     statusCode: 200,
     headers: {
@@ -6,10 +9,10 @@ exports.handler = (event, context, callback) => {
     },
     body: JSON.stringify({
       response_type: 'in_channel',
-      text: 'hey hey ' + event.body.text,
+      text: `Question: ${body.text}`,
       attachments: [
         {
-          text: event.body.text,
+          text: '...',
         },
       ],
     }),
