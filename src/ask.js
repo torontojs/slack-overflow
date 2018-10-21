@@ -11,19 +11,23 @@ exports.handler = (event, context, callback) => {
     q: text,
   })
 
+  let respond = body =>
+    callback(null, {
+      statusCode: 200,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    })
+
   axios
     .get(`https://api.stackexchange.com/search/advanced?${params}`)
-    .then(({ data }) => {
-      callback(null, {
-        statusCode: 200,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          response_type: 'in_channel',
-          text: `Perhaps one of these links can help!
-${data.links.map(q => q.title).join('\n')}`,
-        }),
-      })
-    })
+    .then(({ data }) =>
+      respond({
+        response_type: 'in_channel',
+        text: `Perhaps one of these links can help!
+          ${data.items.map(q => q.title).join('\n')}`,
+      }),
+    )
+    .catch(error => respond({ text: error.message }))
 }
