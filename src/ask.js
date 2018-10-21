@@ -21,12 +21,8 @@ exports.handler = (event, context, callback) => {
         },
         body: JSON.stringify({
           response_type: 'in_channel',
-          text: 'Perhaps one of these links can help!',
-          attachments: [
-            {
-              text: data.items.map(q => q.title).join(/\n/),
-            },
-          ],
+          text: `Perhaps one of these links can help!
+${data.links.map(q => q.title).join('\n')}`,
         }),
       })
     })
