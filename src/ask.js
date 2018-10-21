@@ -6,6 +6,8 @@ exports.handler = (event, context, callback) => {
 
   let params = qs.stringify({
     site: 'stackoverflow.com',
+    sort: 'votes',
+    max: 5,
     q: text,
   })
 
@@ -19,10 +21,10 @@ exports.handler = (event, context, callback) => {
         },
         body: JSON.stringify({
           response_type: 'in_channel',
-          text: `Hopefully one of these answers your question!`,
+          text: 'Perhaps one of these links can help!',
           attachments: [
             {
-              text: data,
+              text: data.items.map(q => q.title).join(/\n/),
             },
           ],
         }),
