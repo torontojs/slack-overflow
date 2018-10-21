@@ -1,6 +1,6 @@
 exports.handler = (event, context, callback) => {
   let qs = require('querystring')
-  let body = qa.parse(event.body)
+  let body = qs.parse(event.body)
 
   callback(null, {
     statusCode: 200,
