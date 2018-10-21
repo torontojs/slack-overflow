@@ -24,7 +24,7 @@ exports.handler = (event, context, callback) => {
             text: `Hopefully one of these answers your question!`,
             attachments: [
               {
-                text: data.slice(0, 100),
+                text: JSON.parse(data).has_more,
               },
             ],
           }),
