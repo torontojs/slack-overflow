@@ -2,12 +2,12 @@ exports.handler = (event, context, callback) => {
   let axios = require('axios')
   let qs = require('querystring')
 
-  let { text = '' } = qs.parse(event.body)
+  let { text = 'babel eslint error' } = qs.parse(event.body)
 
   let params = qs.stringify({
     site: 'stackoverflow.com',
     sort: 'votes',
-    max: 5,
+    pagesize: 5,
     q: text,
   })
 
@@ -22,12 +22,12 @@ exports.handler = (event, context, callback) => {
 
   axios
     .get(`https://api.stackexchange.com/search/advanced?${params}`)
-    .then(({ data }) =>
+    .then(({ data }) => {
       respond({
         response_type: 'in_channel',
         text: `Perhaps one of these links can help!
-          ${data.items.map(q => q.title).join('\n')}`,
-      }),
-    )
+${data.items.map(q => `<${q.link}|q.title> *Score: ${q.score}*`).join('\n')},`,
+      })
+    })
     .catch(error => respond({ text: error.message }))
 }
