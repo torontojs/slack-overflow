@@ -26,7 +26,9 @@ exports.handler = (event, context, callback) => {
       respond({
         response_type: 'in_channel',
         text: `Perhaps one of these links can help!
-${data.items.map(q => `<${q.link}|q.title> *Score: ${q.score}*`).join('\n')},`,
+${data.items
+          .map(q => `<${q.link}|${q.title}> *Score: ${q.score}*`)
+          .join('\n')},`,
       })
     })
     .catch(error => respond({ text: error.message }))
