@@ -27,7 +27,7 @@ exports.handler = (event, context, callback) => {
         response_type: 'in_channel',
         text: `Perhaps one of these links can help!
 ${data.items
-          .map(q => `<${q.link}|${q.title}> *Score: ${q.score}*`)
+          .map(q => `⬆️ *${q.score}* - <${q.link}|${q.title}>`)
           .join('\n')}`,
       })
     })
